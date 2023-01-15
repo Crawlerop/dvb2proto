@@ -1,0 +1,9 @@
+{
+    "frequency": 474,
+    "reserved_pids": [],
+    "bandwidth": 8,
+    "system": "DVB-T2",
+    "filters": {},
+    "pub_url": "rtmp://localhost:1935/mux/p",
+    "adapter": 0
+}
