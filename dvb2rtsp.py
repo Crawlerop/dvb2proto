@@ -17,7 +17,7 @@ if __name__ == "__main__":
     for p in prgs["programs"]:
         if p["program_id"] in s["reserved_pids"]: continue
         print(f'{p["program_id"]} = {p["tags"]["service_name"] if "tags" in p else "N/A"}')
-        tmp_args += f''' -P fork "tsp -P zap {p["program_id"]} | {sys.argv[2]} -copyts -i - -map 0:v:0? -map 0:a:0? -metadata \'title={p["tags"]["service_name"] if "tags" in p else "N/A"}\' -vcodec copy -copyinkf -acodec aac -aac_coder twoloop{" -af '"+s["filters"][str(p["program_id"])]["audio_filters"]+"'" if str(p["program_id"]) in s["filters"] else ""} -b:a 256k -loglevel quiet -f rtsp -rtsp_transport tcp {s["pub_url"]}{p["program_id"]}"'''
+        tmp_args += f''' -P fork "tsp -P zap {p["program_id"]} | {sys.argv[2]} -copyts -flags +output_corrupt -i - -map 0:v:0? -map 0:a:0? -metadata \'title={p["tags"]["service_name"] if "tags" in p else "N/A"}\' -vcodec copy -copyinkf -acodec aac -aac_coder twoloop{" -af '"+s["filters"][str(p["program_id"])]["audio_filters"]+"'" if str(p["program_id"]) in s["filters"] else ""} -b:a 256k -loglevel quiet -f rtsp -rtsp_transport tcp {s["pub_url"]}{p["program_id"]}"'''
     tmp_args += " -O drop"
 
     print(f"start streaming from tuner {s['adapter']}")
